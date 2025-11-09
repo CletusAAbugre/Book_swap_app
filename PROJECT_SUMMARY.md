@@ -4,7 +4,7 @@
 
 This BookSwap app has been fully implemented according to all rubric requirements and is ready for submission and demo.
 
-###  **Architecture & Code Quality (4/4 pts)**
+###  **Architecture & Code Quality **
 - **State Management**: Provider pattern implemented throughout
 - **Clean Architecture**: Proper separation of presentation, domain, and data layers
 - **Folder Structure**: 
