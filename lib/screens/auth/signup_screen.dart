@@ -90,9 +90,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 40),
               TextFormField(
                 controller: _displayNameController,
-                decoration: const InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
                   labelText: 'Display Name',
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Color(0xFFB0B5C9)),
+                  filled: true,
+                  fillColor: const Color(0xFF252B47),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFFDB750),
+                      width: 2,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 1,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 2,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 18,
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -104,9 +140,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
                   labelText: 'Email',
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Color(0xFFB0B5C9)),
+                  filled: true,
+                  fillColor: const Color(0xFF252B47),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFFDB750),
+                      width: 2,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 1,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 2,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 18,
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -121,9 +193,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
                   labelText: 'Password',
-                  border: OutlineInputBorder(),
+                  labelStyle: const TextStyle(color: Color(0xFFB0B5C9)),
+                  filled: true,
+                  fillColor: const Color(0xFF252B47),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFFDB750),
+                      width: 2,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 1,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.redAccent,
+                      width: 2,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 18,
+                  ),
                 ),
                 obscureText: true,
                 validator: (value) {
@@ -209,8 +317,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     showDialog(
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
-      builder: (context) => WillPopScope(
-        onWillPop: () async => false, // Prevent back button dismiss
+      builder: (context) => PopScope(
+        canPop: false, // Prevent back button dismiss
         child: EmailVerificationDialog(
           email: _emailController.text.trim(),
           onVerified: () {
@@ -278,9 +386,11 @@ class _EmailVerificationDialogState extends State<EmailVerificationDialog> {
         
         if (user != null && user.emailVerified) {
           // Email verified! Update Firestore and call callback
-          final authProvider = Provider.of<auth_provider.AuthProvider>(context, listen: false);
-          await authProvider.checkEmailVerification();
-          widget.onVerified();
+          if (mounted) {
+            final authProvider = Provider.of<auth_provider.AuthProvider>(context, listen: false);
+            await authProvider.checkEmailVerification();
+            widget.onVerified();
+          }
           return;
         }
       }
@@ -349,7 +459,7 @@ class _EmailVerificationDialogState extends State<EmailVerificationDialog> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: const Color(0xFFFDB750).withOpacity(0.2),
+              color: const Color(0xFFFDB750).withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
@@ -389,7 +499,7 @@ class _EmailVerificationDialogState extends State<EmailVerificationDialog> {
               color: const Color(0xFF1A1F3A),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: const Color(0xFFFDB750).withOpacity(0.3),
+                color: const Color(0xFFFDB750).withValues(alpha: 0.3),
               ),
             ),
             child: Text(

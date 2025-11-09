@@ -27,9 +27,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             icon: const Icon(Icons.refresh),
             onPressed: () async {
               final authProvider = Provider.of<AuthProvider>(context, listen: false);
+              final messenger = ScaffoldMessenger.of(context);
               await authProvider.checkEmailVerification();
               if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
+                messenger.showSnackBar(
                   const SnackBar(
                     content: Text('Email verification status refreshed'),
                     backgroundColor: Color(0xFFFDB750),
@@ -61,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -137,24 +138,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // Notification Settings
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
+                color: const Color(0xFF2A3150),
                 child: Column(
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(16),
                       child: Row(
                         children: [
-                          Icon(Icons.notifications),
+                          Icon(Icons.notifications, color: Color(0xFFFDB750)),
                           SizedBox(width: 16),
                           Text(
                             'Notification Preferences',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     SwitchListTile(
-                      title: const Text('Push Notifications'),
-                      subtitle: const Text('Receive notifications for swap requests'),
+                      title: const Text(
+                        'Push Notifications',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: const Text(
+                        'Receive notifications for swap requests',
+                        style: TextStyle(color: Color(0xFFB0B5C9)),
+                      ),
                       value: _notificationsEnabled,
                       onChanged: (value) {
                         setState(() {
@@ -163,8 +175,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                     ),
                     SwitchListTile(
-                      title: const Text('Email Notifications'),
-                      subtitle: const Text('Receive email updates for important events'),
+                      title: const Text(
+                        'Email Notifications',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: const Text(
+                        'Receive email updates for important events',
+                        style: TextStyle(color: Color(0xFFB0B5C9)),
+                      ),
                       value: _emailNotifications,
                       onChanged: (value) {
                         setState(() {
@@ -181,13 +199,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // Account Actions
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
+                color: const Color(0xFF2A3150),
                 child: Column(
                   children: [
                     if (user?.emailVerified == false)
                       ListTile(
                         leading: const Icon(Icons.email, color: Colors.orange),
-                        title: const Text('Verify Email'),
-                        subtitle: const Text('Click to resend verification email'),
+                        title: const Text(
+                          'Verify Email',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: const Text(
+                          'Click to resend verification email',
+                          style: TextStyle(color: Color(0xFFB0B5C9)),
+                        ),
                         onTap: () {
                           final messenger = ScaffoldMessenger.of(context);
                           authProvider.sendEmailVerification().then((_) {
@@ -203,7 +228,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ListTile(
                       leading: const Icon(Icons.logout, color: Colors.red),
-                      title: const Text('Sign Out'),
+                      title: const Text(
+                        'Sign Out',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onTap: () => _showSignOutDialog(context, authProvider),
                     ),
                   ],
@@ -218,11 +246,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'BookSwap App',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                     Text(
                       'Version 1.0.0',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Color(0xFFB0B5C9)),
                     ),
                   ],
                 ),
@@ -240,12 +272,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out?'),
+        backgroundColor: const Color(0xFF2A3150),
+        title: const Text(
+          'Sign Out',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          'Are you sure you want to sign out?',
+          style: TextStyle(color: Color(0xFFB0B5C9)),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFFB0B5C9)),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -256,6 +298,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               });
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+            ),
             child: const Text('Sign Out'),
           ),
         ],

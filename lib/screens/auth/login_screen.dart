@@ -216,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             foregroundColor: const Color(0xFF1A1F3A),
                             disabledBackgroundColor: const Color(
                               0xFFFDB750,
-                            ).withOpacity(0.6),
+                            ).withValues(alpha: 0.6),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -286,14 +286,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final navigator = Navigator.of(context);
       bool success = await authProvider.signIn(
         _emailController.text.trim(),
         _passwordController.text,
       );
 
-      if (success && mounted) {
-        Navigator.pushReplacementNamed(context, '/home');
-      } else if (mounted && authProvider.errorMessage != null) {
+      if (success) {
+        if (mounted) navigator.pushReplacementNamed('/home');
+      } else if (authProvider.errorMessage != null && mounted) {
         if (authProvider.errorMessage!.contains('verify your email')) {
           _showEmailVerificationDialog();
         }
@@ -325,10 +326,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ElevatedButton(
             onPressed: () async {
               final authProvider = Provider.of<AuthProvider>(context, listen: false);
+              final navigator = Navigator.of(context);
+              final messenger = ScaffoldMessenger.of(context);
               await authProvider.sendEmailVerification();
               if (mounted) {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
+                navigator.pop();
+                messenger.showSnackBar(
                   const SnackBar(
                     content: Text('Verification email sent!'),
                     backgroundColor: Colors.green,

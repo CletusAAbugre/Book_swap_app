@@ -25,7 +25,10 @@ class BrowseListingsScreen extends StatelessWidget {
         builder: (context, bookProvider, child) {
           if (bookProvider.allBooks.isEmpty) {
             return const Center(
-              child: Text('No books available'),
+              child: Text(
+                'No books available',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
             );
           }
 
@@ -49,7 +52,7 @@ class BrowseListingsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -67,7 +70,7 @@ class BrowseListingsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: const Color(0xFF1E2749),
                           border: Border.all(
-                            color: const Color(0xFFFDB750).withOpacity(0.3),
+                            color: const Color(0xFFFDB750).withValues(alpha: 0.3),
                             width: 1,
                           ),
                         ),
@@ -130,7 +133,7 @@ class BrowseListingsScreen extends StatelessWidget {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFFDB750).withOpacity(0.2),
+                                    color: const Color(0xFFFDB750).withValues(alpha: 0.2),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Text(
@@ -166,7 +169,7 @@ class BrowseListingsScreen extends StatelessWidget {
                                     vertical: 8,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFFDB750).withOpacity(0.2),
+                                    color: const Color(0xFFFDB750).withValues(alpha: 0.2),
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
                                       color: const Color(0xFFFDB750),
@@ -210,7 +213,7 @@ class BrowseListingsScreen extends StatelessWidget {
                                         vertical: 8,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
+                                        color: Colors.grey.withValues(alpha: 0.2),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: const Text(
@@ -251,15 +254,29 @@ class BrowseListingsScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Swap Request'),
-        content: Text('Do you want to request a swap for "${book.title}"?'),
+        backgroundColor: const Color(0xFF2A3150),
+        title: const Text(
+          'Swap Request',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: Text(
+          'Do you want to request a swap for "${book.title}"?',
+          style: const TextStyle(color: Color(0xFFB0B5C9)),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFFB0B5C9)),
+            ),
           ),
           ElevatedButton(
             onPressed: () => _requestSwap(context, book),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFDB750),
+              foregroundColor: const Color(0xFF1A1F3A),
+            ),
             child: const Text('Request Swap'),
           ),
         ],

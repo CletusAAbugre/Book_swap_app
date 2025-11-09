@@ -84,19 +84,19 @@ class _MyBooksTab extends StatelessWidget {
                   colors: [
                     const Color(0xFF3A4A6B),
                     const Color(0xFF2D3A5F),
-                    if (!book.isAvailable) Colors.orange.withOpacity(0.15),
+                    if (!book.isAvailable) Colors.orange.withValues(alpha: 0.15),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
                 ],
                 border: !book.isAvailable 
-                    ? Border.all(color: Colors.orange.withOpacity(0.5), width: 1)
+                    ? Border.all(color: Colors.orange.withValues(alpha: 0.5), width: 1)
                     : null,
               ),
               child: Padding(
@@ -111,7 +111,7 @@ class _MyBooksTab extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         color: const Color(0xFF1E2749),
                         border: Border.all(
-                          color: const Color(0xFFFDB750).withOpacity(0.3),
+                          color: const Color(0xFFFDB750).withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
@@ -174,7 +174,7 @@ class _MyBooksTab extends StatelessWidget {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFFFDB750).withOpacity(0.2),
+                                  color: const Color(0xFFFDB750).withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
@@ -194,8 +194,8 @@ class _MyBooksTab extends StatelessWidget {
                                 ),
                                 decoration: BoxDecoration(
                                   color: book.isAvailable 
-                                      ? Colors.green.withOpacity(0.2)
-                                      : Colors.orange.withOpacity(0.2),
+                                      ? Colors.green.withValues(alpha: 0.2)
+                                      : Colors.orange.withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
@@ -269,12 +269,22 @@ class _MyBooksTab extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Book'),
-        content: Text('Are you sure you want to delete "${book.title}"?'),
+        backgroundColor: const Color(0xFF2A3150),
+        title: const Text(
+          'Delete Book',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: Text(
+          'Are you sure you want to delete "${book.title}"?',
+          style: const TextStyle(color: Color(0xFFB0B5C9)),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFFB0B5C9)),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -287,6 +297,10 @@ class _MyBooksTab extends StatelessWidget {
                 );
               }
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+            ),
             child: const Text('Delete'),
           ),
         ],
@@ -304,7 +318,10 @@ class _MyOffersTab extends StatelessWidget {
       builder: (context, swapProvider, child) {
         if (swapProvider.userOffers.isEmpty) {
           return const Center(
-            child: Text('No swap offers made'),
+            child: Text(
+              'No swap offers made',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           );
         }
 
@@ -314,14 +331,27 @@ class _MyOffersTab extends StatelessWidget {
             final swap = swapProvider.userOffers[index];
             return Card(
               margin: const EdgeInsets.all(8.0),
+              color: const Color(0xFF2A3150),
               child: ListTile(
-                title: Text(swap.bookTitle),
+                title: Text(
+                  swap.bookTitle,
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Owner: ${swap.ownerName}'),
-                    Text('Status: ${swap.statusString}'),
-                    Text('Date: ${swap.createdAt.toString().split(' ')[0]}'),
+                    Text(
+                      'Owner: ${swap.ownerName}',
+                      style: const TextStyle(color: Color(0xFFB0B5C9)),
+                    ),
+                    Text(
+                      'Status: ${swap.statusString}',
+                      style: const TextStyle(color: Color(0xFFFDB750)),
+                    ),
+                    Text(
+                      'Date: ${swap.createdAt.toString().split(' ')[0]}',
+                      style: const TextStyle(color: Color(0xFFB0B5C9)),
+                    ),
                   ],
                 ),
                 trailing: _getStatusIcon(swap.status),
@@ -354,7 +384,10 @@ class _RequestsTab extends StatelessWidget {
       builder: (context, swapProvider, child) {
         if (swapProvider.userRequests.isEmpty) {
           return const Center(
-            child: Text('No swap requests received'),
+            child: Text(
+              'No swap requests received',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           );
         }
 
@@ -364,14 +397,27 @@ class _RequestsTab extends StatelessWidget {
             final swap = swapProvider.userRequests[index];
             return Card(
               margin: const EdgeInsets.all(8.0),
+              color: const Color(0xFF2A3150),
               child: ListTile(
-                title: Text(swap.bookTitle),
+                title: Text(
+                  swap.bookTitle,
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Requested by: ${swap.requesterName}'),
-                    Text('Status: ${swap.statusString}'),
-                    Text('Date: ${swap.createdAt.toString().split(' ')[0]}'),
+                    Text(
+                      'Requested by: ${swap.requesterName}',
+                      style: const TextStyle(color: Color(0xFFB0B5C9)),
+                    ),
+                    Text(
+                      'Status: ${swap.statusString}',
+                      style: const TextStyle(color: Color(0xFFFDB750)),
+                    ),
+                    Text(
+                      'Date: ${swap.createdAt.toString().split(' ')[0]}',
+                      style: const TextStyle(color: Color(0xFFB0B5C9)),
+                    ),
                   ],
                 ),
                 trailing: swap.status == SwapStatus.pending
