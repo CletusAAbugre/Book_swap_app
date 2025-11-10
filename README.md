@@ -1,53 +1,53 @@
-# BookSwap App
+** BookSwap App**
 
 A Flutter mobile application that allows students to list textbooks they wish to exchange and initiate swap offers with other users.
 
-## Features
+ Features
 
-### Authentication
+ Authentication
 - User signup with email/password
 - Email verification requirement
 - User login/logout
 - Profile management
 
-### Book Management (CRUD)
+Book Management (CRUD)
 - Create: Post books with title, author, condition, and cover image
 - Read: Browse all available book listings
 - Update: Edit your own book listings
 - Delete: Remove your own book listings
 
-### Swap Functionality
+ Swap Functionality
 - Initiate swap offers on available books
 - Real-time swap state updates (Pending, Accepted, Rejected)
 - View sent offers and received requests
 - Accept/reject incoming swap requests
 
-### Chat System (Bonus)
+ Chat System (Bonus)
 - Real-time messaging between users after swap offers
 - Chat rooms created automatically for swap participants
 - Message history persistence
 
-### Navigation
+ Navigation
 - Bottom navigation with 4 screens:
   - Browse Listings
   - My Listings (with tabs for books, offers, requests)
   - Chats
   - Settings
 
-### Settings
+ Settings
 - Profile information display
 - Notification preferences toggles
 - Email verification status
 - Sign out functionality
 
-## Architecture
+ Architecture
 
-### State Management
+ State Management
 - **Provider Pattern**: Used for reactive state management across the app
 - Clean separation between UI and business logic
 - Real-time updates from Firebase Firestore
 
-### Project Structure
+ Project Structure
 
 lib/
 ├── models/          # Data models (User, Book, Swap, Chat)
@@ -59,7 +59,7 @@ lib/
 └── main.dart        # App entry point
 
 
-### Architecture Diagram
+ Architecture Diagram
 
 ┌─────────────────────────────────────────────────────────────────┐
 │                        BookSwap Flutter App                     │
@@ -103,10 +103,9 @@ lib/
 └─────────────────────────────────────────────────────────────────┘
 
 
+ Database Schema
 
-### Database Schema
-
-#### Users Collection
+ Users Collection
 
 users/{userId}
 ├── uid: string
@@ -116,7 +115,7 @@ users/{userId}
 └── createdAt: timestamp
 
 
-#### Books Collection
+ Books Collection
 
 books/{bookId}
 ├── title: string
@@ -129,7 +128,7 @@ books/{bookId}
 └── isAvailable: boolean
 
 
-#### Swaps Collection
+ Swaps Collection
 
 swaps/{swapId}
 ├── requesterId: string
@@ -143,7 +142,7 @@ swaps/{swapId}
 └── updatedAt: timestamp
 
 
-#### Chats Collection
+ Chats Collection
 
 chats/{chatId}
 ├── participants: array[string]
@@ -156,14 +155,14 @@ chats/{chatId}
     └── timestamp: timestamp
 
 
-## Setup Instructions
+ Setup Instructions
 
-### Prerequisites
+ Prerequisites
 - Flutter SDK (3.9.2 or higher)
 - Firebase project with Authentication, Firestore, and Storage enabled
 - Android Studio or VS Code with Flutter extensions
 
-### Firebase Setup
+ Firebase Setup
 1. Create a new Firebase project
 2. Enable Authentication with Email/Password provider
 3. Enable Firestore Database
@@ -172,13 +171,13 @@ chats/{chatId}
    - `google-services.json` for Android (place in `android/app/`)
    - `GoogleService-Info.plist` for iOS (place in `ios/Runner/`)
 
-### Installation
+ Installation
 1. Clone the repository
 2. Run `flutter pub get` to install dependencies
 3. Configure Firebase (files should already be in place)
 4. Run `flutter run` to start the app
 
-### Dependencies
+ Dependencies
 - `firebase_core`: Firebase SDK core
 - `firebase_auth`: Authentication
 - `cloud_firestore`: Database
@@ -187,7 +186,7 @@ chats/{chatId}
 - `image_picker`: Image selection
 - `cached_network_image`: Image caching
 
-## Usage
+ Usage
 
 1. **Sign Up**: Create account with email verification
 2. **Add Books**: Post your textbooks with details and photos
@@ -196,7 +195,7 @@ chats/{chatId}
 5. **Manage**: Accept/reject incoming requests
 6. **Chat**: Message other users about swaps
 
-## Technical Highlights
+Technical Highlights
 
 - **Real-time Updates**: Firestore streams for instant UI updates
 - **Image Handling**: Upload and cache book cover images
@@ -207,48 +206,16 @@ chats/{chatId}
 - **Dark Theme**: Consistent dark theme with proper text visibility
 - **Zero Analyzer Warnings**: Clean codebase with no analyzer issues
 
-## Deliverables Checklist
 
-### ✅ Required Deliverables (3/3 pts)
 
-1. **Reflection PDF** - `REFLECTION.md`
-   - ≥2 Firebase error screenshots + resolutions
-   - Import conflict resolution
-   - Windows build issues and workarounds
-   - Email verification implementation challenges
-
-2. **Dart Analyzer Screenshot** - `ANALYZER_RESULTS.txt`
-   - **ZERO WARNINGS ACHIEVED** ✅
-   - All deprecation warnings fixed
-   - Production-ready status confirmed
-
-3. **GitHub Repository**
-   - Clean project structure
-   - Comprehensive README (this file)
-   - Proper .gitignore configuration
-   - **11+ incremental commits** with clear messages
-
-4. **Design Summary** - `DESIGN_SUMMARY.md`
-   - Database schema/ERD documentation
-   - Swap state modeling
-   - State management architecture
-   - Design trade-offs and challenges
-
-### 📊 Project Status
-- **Total Points**: 35/35 (including 5 bonus points for chat)
-- **Analyzer Status**: ✅ **ZERO WARNINGS**
-- **Build Status**: ✅ Compiles successfully on mobile/web
-- **Demo Ready**: ✅ All features functional
-- **Text Visibility**: ✅ All text properly visible on dark background
-
-## Platform Compatibility
+ Platform Compatibility
 
 - ✅ **Android**: Fully functional (recommended for demo)
 - ✅ **Web**: Fully functional
 - ✅ **iOS**: Should work (untested)
 - ❌ **Windows**: Build fails due to Firebase C++ SDK issues
 
-## Future Enhancements
+ Future Enhancements
 
 - Push notifications for swap updates
 - Advanced search and filtering
