@@ -210,9 +210,9 @@ Technical Highlights
 
  Platform Compatibility
 
-- ✅ **Android**: Fully functional (recommended for demo)
-- ✅ **Web**: Fully functional
-- ✅ **iOS**: Should work (untested)
+-  **Android**: Fully functional 
+-  **Web**: Fully functional
+-  **iOS**: Should work (untested)
 - ❌ **Windows**: Build fails due to Firebase C++ SDK issues
 
  Future Enhancements
